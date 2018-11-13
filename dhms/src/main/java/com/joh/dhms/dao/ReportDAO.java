@@ -24,7 +24,7 @@ public class ReportDAO {
 		// Notification-1
 
 		Query query = em.createNativeQuery(
-				"SELECT COUNT(*)  FROM PATIENT_VISITS WHERE I_DOCTOR=?1 AND VISIT_TIME BETWEEN CURDATE() AND CURDATE()+INTERVAL 1 DAY;");
+				"SELECT COUNT(*)  FROM PATIENT_VISITS WHERE I_DOCTOR=?1 AND VISIT_DATE BETWEEN CURDATE() AND CURDATE()+INTERVAL 1 DAY;");
 		query.setParameter(1, doctorId);
 		Object totalPatientVisitResult = query.getSingleResult();
 
@@ -47,7 +47,7 @@ public class ReportDAO {
 		query = em.createNativeQuery(
 				"SELECT SUM((CASE WHEN DISCOUNT_AMOUNT IS NULL THEN TOTAL_PRICE ELSE TOTAL_PRICE - DISCOUNT_AMOUNT * TOTAL_PRICE END)) AS TOTAL_PAYMENT\n"
 						+ "FROM PATIENT_VISITS\n"
-						+ "WHERE I_DOCTOR = ?1 AND VISIT_TIME BETWEEN CURDATE() AND CURDATE() + INTERVAL 1 DAY;");
+						+ "WHERE I_DOCTOR = ?1 AND VISIT_DATE BETWEEN CURDATE() AND CURDATE() + INTERVAL 1 DAY;");
 
 		query.setParameter(1, doctorId);
 
